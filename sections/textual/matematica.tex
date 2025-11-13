@@ -1,0 +1,960 @@
+\section{Matemática}
+
+\subsection{Equações de Navier Stokes}
+
+Um fluido é uma substância (líquida ou gasosa) que se deforma continuamente ao sofrer uma tensão, por menor que seja essa tensão.
+Os fluidos são caracterizados por alguns atributos, os principais são a viscosidade e compressibilidade. A viscosidade busca medir
+o quão internamente resistente é o fluido ao movimento e ao escoamento, um exemplo de fluido com alta viscosidade é o mel que flui mais
+devagar do que um fluido de baixa viscosidade como a água. A compressibilidade se refere a capacidade do fluido
+alterar seu volume sob pressão, gases são compressíveis enquanto líquidos são considerados praticamente incompressíveis.
+
+Os fluidos podem ser classificados em duas grandes categorias, os fluidos newtonianos e os não-newtonianos.
+Um fluido newtoniano é um fluido onde cada componente de tensão cisalhante aplicada é linearmente proporcional a
+taxa de deformação. Um fluido não-newtoniano é um fluido que não respeita essa proporção.
+
+As equações de Navier-Stokes são equações diferenciais parciais que descrevem a dinâmica dos fluidos, foram formuladas a partir das
+Leis de Newton do movimento.
+
+Considerando escoamentos isotérmicos e incompressíveis, as equações na forma vetorial que modelam
+esse escoamento são a equação da continuidade e a equação do momento.
+
+\begin{itemize}
+    \item Equação da continuidade
+        \begin{equation}
+            \label{eq:continuidade}
+            \nabla \cdot \mathbf{u} = 0 
+        \end{equation}
+    \item Equação do momento
+        \begin{equation}
+            \label{eq:momento}
+            \rho \left(\frac{\partial \mathbf{u} ^ T}{\partial t} + \nabla \cdot (\mathbf{u}\mathbf{u}^{T})\right) = \nabla \cdot \mathbf{\sigma} + \rho \mathbf{g}
+        \end{equation}
+\end{itemize}
+
+Para escoamentos bidimensionais, $\mathbf{u} = \left[ u \ v \right]^T$ é o vetor de velocidades dependentes do espaço e do tempo, $u(\mathbf{x}, t)$ e $v(\mathbf{x}, t)$,
+onde $\mathbf{x} = \left[ x \ y \right]^T$. O tensor tensão total é dado por 
+\[
+    \mathbf{\sigma} = \tau - pI
+\]
+
+onde $p$ é a pressão dada em função do espaço e do tempo $p(x, y, t)$, $I$ é a matriz identidade e 
+\[
+    \tau = 
+    \begin{bmatrix}
+        \tau^{xx} & \tau^{xy} \\
+        \tau^{xy} & \tau^{yy} \\
+    \end{bmatrix}
+\]
+
+Assim como a pressão, as tensões dentro da matriz também estão em função do espaço e do tempo.
+
+A matriz das tensões $\tau$ para fluidos newtonianos é linearmente proporcional à matriz taxa de deformação. Logo,
+considerando um escoamento incompressível, $\tau$ é escrita da seguinte forma:
+\[
+    \tau = 2 \eta_{s} \mathbf{S},
+\]
+onde $\eta_{s}$ é a viscosidade do fluido e $\mathbf{S}$ é a matriz simétrica de taxa de deformação, dada por
+\[
+    \mathbf{S} = \frac{1}{2}\big(\nabla \mathbf{u} + (\nabla \mathbf{u})^T\big).
+\]
+
+Dada a definição da equação em sua forma vetorial é possível derivar para a forma de coordenadas cartesianas. Isso
+é feito por meio da expansão dos vetores e multiplicação de matrizes.
+
+\begin{equation}
+\label{eq:divu}
+\nabla \cdot \mathbf{u} = 
+\begin{bmatrix}
+    \frac{\partial}{\partial x} & \frac{\partial}{\partial y}
+\end{bmatrix}
+\begin{bmatrix}
+    u \\
+    v \\
+\end{bmatrix}
+= \frac{\partial u}{\partial x} + \frac{\partial v}{\partial y} = 0
+\end{equation}
+
+\begin{equation}
+\label{eq:udt}
+\frac{\partial \mathbf{u} ^ T}{\partial t} =
+\begin{bmatrix}
+    \frac{\partial u}{\partial t} & \frac{\partial v}{\partial t}
+\end{bmatrix}
+\end{equation}
+
+\begin{equation}
+\label{eq:divuut}
+\nabla \cdot (\mathbf{u}\mathbf{u}^{T}) =
+\begin{bmatrix}
+    \frac{\partial}{\partial x} & \frac{\partial}{\partial y}
+\end{bmatrix}
+\begin{bmatrix}
+    uu & uv \\
+    uv & vv \\
+\end{bmatrix}
+=
+\begin{bmatrix}
+    \frac{\partial (uu)}{\partial x} + \frac{\partial (uv)}{\partial y} &
+    \frac{\partial (uv)}{\partial x} + \frac{\partial (vv)}{\partial y}
+\end{bmatrix}
+\end{equation}
+
+\begin{equation}
+\label{eq:divtwoeta}
+\resizebox{\textwidth}{!}{$
+\begin{aligned}
+\nabla \cdot \left(2 \eta_S \mathbf{S} - p \mathbf{I}\right)
+&= 
+\begin{bmatrix}
+\frac{\partial}{\partial x} & \frac{\partial}{\partial y}
+\end{bmatrix}
+\begin{bmatrix}
+2 \eta_S \frac{\partial u}{\partial x} - p & \eta_S \left(\frac{\partial u}{\partial y} + \frac{\partial v}{\partial x}\right) \\
+\eta_S \left(\frac{\partial u}{\partial y} + \frac{\partial v}{\partial x}\right) & 2 \eta_S \frac{\partial v}{\partial y} - p
+\end{bmatrix} \\[6pt]
+&=
+\begin{bmatrix}
+2 \eta_S \frac{\partial^2 u}{\partial x^2} - \frac{\partial p}{\partial x} + \eta_S \left(\frac{\partial^2 u}{\partial y^2} + \frac{\partial}{\partial y}\left(\frac{\partial v}{\partial x}\right)\right) &
+\eta_S \left(\frac{\partial}{\partial x}\left(\frac{\partial u}{\partial y}\right) + \frac{\partial^2 v}{\partial x^2}\right) + 2 \eta_S \frac{\partial^2 v}{\partial y^2} - \frac{\partial p}{\partial y}
+\end{bmatrix} \\[6pt]
+&=
+\begin{bmatrix}
+2 \eta_S \frac{\partial^2 u}{\partial x^2} - \frac{\partial p}{\partial x} + \eta_S \left(\frac{\partial^2 u}{\partial y^2} - \frac{\partial^2 u}{\partial x^2}\right) &
+\eta_S \left(- \frac{\partial^2 v}{\partial y^2} + \frac{\partial^2 v}{\partial x^2}\right) + 2 \eta_S \frac{\partial^2 v}{\partial y^2} - \frac{\partial p}{\partial y}
+\end{bmatrix} \\[6pt]
+&=
+\begin{bmatrix}
+- \frac{\partial p}{\partial x} + \eta_S \left(\frac{\partial^2 u}{\partial x^2} + \frac{\partial^2 u}{\partial y^2}\right) &
+- \frac{\partial p}{\partial y} + \eta_S \left(\frac{\partial^2 v}{\partial x^2} + \frac{\partial^2 v}{\partial y^2}\right)
+\end{bmatrix}
+\end{aligned}
+$}
+\end{equation}
+
+\begin{equation}
+\label{eq:rhog}
+\rho \mathbf{g} = \rho
+\begin{bmatrix}
+    g_x & g_y
+\end{bmatrix}
+\end{equation}
+
+Substituindo as equações de \eqref{eq:udt} até \eqref{eq:rhog} na equação 2, obtemos um sistema de duas equações, sabendo que \eqref{eq:divu} foi usado para chegar na equação \eqref{eq:divtwoeta}, o sistema é composto por 3 equações.
+
+\begin{equation}
+\rho
+\left(
+    \begin{bmatrix}
+        \frac{\partial u}{\partial t} & \frac{\partial v}{\partial t}
+    \end{bmatrix}
+    +
+    \begin{bmatrix}
+        \frac{\partial (uu)}{\partial x} + \frac{\partial (uv)}{\partial y} &
+        \frac{\partial (uv)}{\partial x} + \frac{\partial (vv)}{\partial y}
+    \end{bmatrix}
+\right)
+= 
+\rho
+\begin{bmatrix}
+    \frac{\partial u}{\partial t} + \frac{\partial (uu)}{\partial x} + \frac{\partial (uv)}{\partial y} &
+    \frac{\partial v}{\partial t} + \frac{\partial (uv)}{\partial x} + \frac{\partial (vv)}{\partial y}
+\end{bmatrix}
+\end{equation}
+
+\begin{equation}
+    \nabla \cdot \mathbf{\sigma} + \rho \mathbf{g} =
+\begin{bmatrix}
+    - \frac{\partial p}{\partial x} + \eta_S \left(\frac{\partial^2 u}{\partial x^2} + \frac{\partial^2 u}{\partial y^2}\right) &
+    - \frac{\partial p}{\partial y} + \eta_S \left(\frac{\partial^2 v}{\partial x^2} + \frac{\partial^2 v}{\partial y^2}\right)
+\end{bmatrix}
++
+\rho
+\begin{bmatrix}
+    g_x & g_y
+\end{bmatrix}
+\end{equation}
+
+\begin{equation}
+\left\{
+\begin{aligned}
+\rho
+\Big(
+    \frac{\partial u}{\partial t} + \frac{\partial (uu)}{\partial x} + \frac{\partial (uv)}{\partial y}
+\Big)
+&= \rho g_x - \frac{\partial p}{\partial x} + \eta_S \Big(\frac{\partial^2 u}{\partial x^2} + \frac{\partial^2 u}{\partial y^2}\Big), \\
+\rho
+\Big(
+    \frac{\partial v}{\partial t} + \frac{\partial (uv)}{\partial x} + \frac{\partial (vv)}{\partial y}
+\Big)
+&= \rho g_y - \frac{\partial p}{\partial y} + \eta_S \Big(\frac{\partial^2 v}{\partial x^2} + \frac{\partial^2 v}{\partial y^2}\Big), \\
+\frac{\partial u}{\partial x} + \frac{\partial v}{\partial y} 
+&= 0
+\end{aligned}
+\right.
+\end{equation}
+
+\subsection{Equações de águas rasas}
+
+As equações de águas rasas são um sistema de equações diferenciais parciais que descrevem o movimento dos fluidos onde
+a profundidade é muito menor do que a extensão horizontal do fluido, muito usadas para modelar fenômenos como ondas, correntes
+oceânicas e tsunamis.
+
+Essas equações são derivadas a partir das equações de Navier-Stokes, mais especificamente uma variação das equações de Navier-Stokes
+chamada de equações de Euler, onde são feitas algumas aproximações para simplificar o modelo matemático. Nessas equações o fluido
+é assumido como isotérmico e invíscido. Invíscido é um termo usado para denominar um fluido idealizada com viscosidade zero.
+
+\begin{equation}
+\label{eq:swe-sis-1}
+\left\{
+\begin{aligned}
+\frac{\partial \rho}{\partial t}
+&+ \frac{\partial (\rho u)}{\partial x}
++ \frac{\partial (\rho v)}{\partial y}
++ \frac{\partial (\rho w)}{\partial z}
+= 0,
+\\[6pt]
+\frac{\partial (\rho u)}{\partial t}
+&+ \frac{\partial (\rho u^2 + p)}{\partial x}
++ \frac{\partial (\rho u v)}{\partial y}
++ \frac{\partial (\rho u w)}{\partial z}
+= 0,
+\\[6pt]
+\frac{\partial (\rho v)}{\partial t}
+&+ \frac{\partial (\rho u v)}{\partial x}
++ \frac{\partial (\rho v^2 + p)}{\partial y}
++ \frac{\partial (\rho v w)}{\partial z}
+= 0,
+\\[6pt]
+\frac{\partial (\rho w)}{\partial t}
+&+ \frac{\partial (\rho u w)}{\partial x}
++ \frac{\partial (\rho v w)}{\partial y}
++ \frac{\partial (\rho w^2 + p)}{\partial z}
+= -\rho g.
+\end{aligned}
+\right.
+\end{equation}
+
+Onde $\rho$ é a densidade do fluido , $p$ é a pressão e $g$ é a constante gravitacional, e $u, v, w$ são as velocidades em cada
+uma das direções x, y, z.
+
+Assumindo que estamos lidando com um fluido incompressível, podemos tomar $\rho$ como uma constante, simplificando a equação.
+
+\begin{equation}
+\label{eq:swe-sis-2}
+\left\{
+\begin{aligned}
+\frac{\partial }{\partial t}
+&+ \frac{\partial u}{\partial x}
++ \frac{\partial v}{\partial y}
++ \frac{\partial w}{\partial z}
+= 0,
+\\[6pt]
+\frac{\partial u}{\partial t}
+&+ \frac{\partial ( u^2 + p)}{\partial x}
++ \frac{\partial (u v)}{\partial y}
++ \frac{\partial (u w)}{\partial z}
+= 0,
+\\[6pt]
+\frac{\partial v}{\partial t}
+&+ \frac{\partial u v}{\partial x}
++ \frac{\partial (v^2 + p)}{\partial y}
++ \frac{\partial (v w)}{\partial z}
+= 0,
+\\[6pt]
+\frac{\partial w}{\partial t}
+&+ \frac{\partial u w}{\partial x}
++ \frac{\partial v w}{\partial y}
++ \frac{\partial (w^2 + p)}{\partial z}
+= -g.
+\end{aligned}
+\right.
+\end{equation}
+
+A principal simplificação que será feita na equação acima é assumir que o tamanho vertical da onda é muito menor do que o seu
+tamanho horizontal, o que implica que a aceleração vertical é insignificante quando comparada com $g$. $\frac{Dw}{Dt} = 0$.
+
+\begin{equation}
+\label{eq:swe-sis-3}
+\left\{
+\begin{aligned}
+\frac{\partial }{\partial t}
+&+ \frac{\partial u}{\partial x}
++ \frac{\partial v}{\partial y}
++ \frac{\partial w}{\partial z}
+= 0,
+\\[6pt]
+\frac{\partial u}{\partial t}
+&+ \frac{\partial (u^2 + p)}{\partial x}
++ \frac{\partial (u v)}{\partial y}
++ \frac{\partial (u w)}{\partial z}
+= 0,
+\\[6pt]
+\frac{\partial v}{\partial t}
+&+ \frac{\partial (u v)}{\partial x}
++ \frac{\partial (v^2 + p)}{\partial y}
++ \frac{\partial (v w)}{\partial z}
+= 0,
+\\[6pt]
+\frac{\partial p}{\partial z}
+&= -g.
+\end{aligned}
+\right.
+\end{equation}
+
+Integrando a quarta equação do sistema \eqref{eq:swe-sis-3} em ambos os lados na variável $z$.
+
+\begin{equation}
+p = -gz + C
+\end{equation}
+
+\begin{figure}[H]
+    \centering
+    \caption{Esquema visual das equações de águas rasas}
+    \includegraphics[width=0.5\linewidth]{images/shallow_water_sketch.png}\\
+    \fonteimagem{Fonte: Devito}
+    \label{fig:figura-swe}
+\end{figure}
+
+Considerando a \ref{fig:figura-swe} podemos simplificar um pouco as equações de águas rasas integrando as
+variáveis $u$ e $v$ na variável $z$ e chamando de $M$ e $N$ respectivamente.
+
+\begin{equation}
+    \label{eq:swe-m}
+    M =
+    \int_{-h}^{\eta}
+    u (x, y, z, t)
+    \,dz =
+    u (x, y, \tilde{z}, t)
+    \int_{-h}^{\eta}
+    \,dz =
+    u (x, y, \tilde{z}, t)
+    (\eta + h)
+    = u D
+\end{equation}
+
+\begin{equation}
+    \label{eq:swe-n}
+    N =
+    \int_{-h}^{\eta}
+    v (x, y, z, t)
+    \,dz =
+    v (x, y, \tilde{z}, t)
+    \int_{-h}^{\eta}
+    \,dz =
+    v (x, y, \tilde{z}, t)
+    (\eta + h)
+    = v D
+\end{equation}
+
+Esse resultado é obtido a partir da simplificação típica do modelo de águas rasas, na qual se
+assume que as velocidades nas direções $x$ e $y$ variam muito pouco ao longo da profundidade.
+Essa hipótese é justificada pelo fato de que, em escoamentos de águas rasas, a altura da coluna d’água
+é muito menor que as dimensões horizontais do domínio, tornando razoável considerar as componentes
+horizontais da velocidade aproximadamente constantes em $z$.
+
+Além disso, é necessário especificar algumas condições de contorno para derivar as equações de águas rasas.
+A primeira condição de contorno é a cinemática na superfície livre, para obter essa essa condição de contorno
+é necessário definir implicitamente a equação da superfície livre, dada por $F(x, y, z, t) = z - \eta(x, y, t)$.
+
+\begin{equation}
+    \label{eq:bc1.1}
+    \begin{aligned}
+        &\frac{\partial F}{\partial t} + (\mathbf{u} \cdot \nabla) F = 0 \\
+        &\frac{\partial F}{\partial t} + u \frac{\partial F}{\partial x}
+        + v \frac{\partial F}{\partial y} + w \frac{\partial F}{\partial z} = 0
+    \end{aligned}
+\end{equation}
+
+Substituindo $F$ por $z - \eta$ e resolvendo as derivdas parciais.
+
+\begin{equation}
+    \label{eq:bc1.2}
+    \begin{aligned}
+        &\frac{\partial (z - \eta)}{\partial t}
+        + u \frac{\partial (z - \eta)}{\partial x}
+        + v \frac{\partial (z - \eta)}{\partial y}
+        + w \frac{\partial (z - \eta)}{\partial z} = 0\\
+        &\frac{\partial \eta}{\partial t}
+        + u \frac{\partial \eta}{\partial x}
+        + v \frac{\partial \eta}{\partial y}
+        = w
+    \end{aligned}
+\end{equation}
+
+A segunda condição de contorno a ser considerada é a pressão atmosférica constante ao longo da superfície
+livre.
+
+\begin{equation}
+    \label{eq:bc2}
+    p \big|_{z = \eta} = p_0
+\end{equation}
+
+A terceira condição de contorno é a condição de não-deslizamento aplicada às velocidades na base da coluna d’água.
+
+\begin{equation}
+    \label{eq:bc3}
+    u \big|_{z = -h} =
+    v \big|_{z = -h} =
+    w \big|_{z = -h} = 0
+\end{equation}
+
+Com as condições de contorno estabelecidas, podemos prosseguir com a derivação das equações. Considerando a Figura
+\ref{fig:figura-swe} e integrando a primeira equação do sistema \eqref{eq:swe-sis-3} em relação à variável
+$z$, obtemos:
+
+\begin{equation}
+    \label{eq:swe1}
+    \int_{-h}^{\eta}
+    \left(
+        + \frac{\partial u}{\partial x}
+        + \frac{\partial v}{\partial y}
+        + \frac{\partial w}{\partial z}
+    \right)
+    \,dz = 0
+\end{equation}
+
+Integrando cada componente individualmente
+
+\begin{equation}
+    \label{eq:swe1.1}
+    \int_{-h}^{\eta}
+    \left(
+        \frac{\partial u}{\partial x}
+    \right)
+    \,dz =
+    \frac{\partial}{\partial x}
+    \int_{-h}^{\eta} u \,dz -
+    u \big|_{z=\eta} \frac{\partial \eta}{\partial x} -
+    u \big|_{z=-h} \frac{\partial h}{\partial x}
+\end{equation}
+
+\begin{equation}
+    \label{eq:swe1.2}
+    \int_{-h}^{\eta}
+    \left(
+        \frac{\partial v}{\partial y}
+    \right)
+    \,dz =
+    \frac{\partial}{\partial y}
+    \int_{-h}^{\eta} v \,dz -
+    v \big|_{z=\eta} \frac{\partial \eta}{\partial y} -
+    v \big|_{z=-h} \frac{\partial h}{\partial y}
+\end{equation}
+
+\begin{equation}
+    \label{eq:swe1.3}
+    \int_{-h}^{\eta}
+    \left(
+        \frac{\partial w}{\partial z}
+    \right)
+    \,dz =
+    w\big|_{z=\eta} - w\big|_{z=-h}
+\end{equation}
+
+Substituindo \eqref{eq:swe1.1}, \eqref{eq:swe1.2}, e \eqref{eq:swe1.3} em \eqref{eq:swe1}
+
+\begin{equation}
+    \label{eq:swe1-final1}
+    \begin{aligned}
+&\Biggl(
+    \frac{\partial}{\partial x} \int_{-h}^{\eta} u \, dz
+    - u\big|_{z=\eta} \frac{\partial \eta}{\partial x}
+    - u\big|_{z=-h} \frac{\partial h}{\partial x}
+\Biggr) \;+\; \\
+&\Biggl(
+    \frac{\partial}{\partial y} \int_{-h}^{\eta} v \, dz
+    - v\big|_{z=\eta} \frac{\partial \eta}{\partial y}
+    - v\big|_{z=-h} \frac{\partial h}{\partial y}
+\Biggr) \;+\;
+\Bigl(
+    w\big|_{z=\eta} - w\big|_{z=-h}
+\Bigr) = 0
+    \end{aligned}
+\end{equation}
+
+Considerando a condição de contorno de não-deslizamento.
+
+\begin{equation}
+    \label{eq:swe1-final2}
+    \frac{\partial (uD)}{\partial x} -
+    u\big|_{z=\eta} \frac{\partial \eta}{\partial x} +
+    \frac{\partial (vD)}{\partial y} -
+    v\big|_{z=\eta} \frac{\partial \eta}{\partial y} +
+    w\big|_{z=\eta} = 0
+\end{equation}
+
+Considerando a condição de contorno da cinemática ao longo da superfície livre e as equações \eqref{eq:swe-m} e \eqref{eq:swe-n}
+
+\begin{equation}
+    \label{eq:swe1-final3}
+    \frac{\partial (uD)}{\partial x}
+    - u\big|_{z=\eta} \frac{\partial \eta}{\partial x}
+    + \frac{\partial (vD)}{\partial y}
+    - v\big|_{z=\eta} \frac{\partial \eta}{\partial y}
+    + \frac{\partial \eta}{\partial t}
+    + u\big|_{z=\eta} \frac{\partial \eta}{\partial x}
+    + v\big|_{z=\eta} \frac{\partial \eta}{\partial y}
+    = 0
+\end{equation}
+
+\begin{equation}
+    \label{eq:swe1-final4}
+    \frac{\partial M}{\partial x}
+    + \frac{\partial N}{\partial y}
+    + \frac{\partial \eta}{\partial t}
+    = 0
+\end{equation}
+
+Repetindo o processo para a segunda equação do sistema \eqref{eq:swe-sis-3}:
+
+\begin{equation}
+    \label{eq:swe2}
+    \int_{-h}^{\eta}
+    \left(
+        \frac{\partial u}{\partial t}
+        + \frac{\partial (u^2 + p)}{\partial x}
+        + \frac{\partial (u v)}{\partial y}
+        + \frac{\partial (u w)}{\partial z}
+    \right)
+    \,dz = 0
+\end{equation}
+
+Integrando cada componente individualmente
+
+\begin{equation}
+    \label{eq:swe2.1}
+    \int_{-h}^{\eta}
+    \left(
+        \frac{\partial u}{\partial t}
+    \right)
+    \,dz =
+    \frac{\partial}{\partial t}
+    \int_{-h}^{\eta} u \,dz -
+    u \big|_{z=\eta} \frac{\partial \eta}{\partial t} -
+    u \big|_{z=-h} \frac{\partial h}{\partial t}
+\end{equation}
+
+\begin{equation}
+    \label{eq:swe2.2}
+    \int_{-h}^{\eta}
+    \left(
+        \frac{\partial (u^2 + p)}{\partial x}
+    \right)
+    \,dz =
+    \frac{\partial}{\partial x}
+    \int_{-h}^{\eta} (u^2 + p) \,dz -
+    (u^2 + p) \big|_{z=\eta} \frac{\partial \eta}{\partial x} -
+    (u^2 + p) \big|_{z=-h} \frac{\partial h}{\partial x}
+\end{equation}
+
+\begin{equation}
+    \label{eq:swe2.3}
+    \int_{-h}^{\eta}
+    \left(
+        \frac{\partial (uv)}{\partial y}
+    \right)
+    \,dz =
+    \frac{\partial}{\partial y}
+    \int_{-h}^{\eta} (uv) \,dz -
+    (uv) \big|_{z=\eta} \frac{\partial \eta}{\partial y} -
+    (uv) \big|_{z=-h} \frac{\partial h}{\partial y}
+\end{equation}
+
+\begin{equation}
+    \label{eq:swe2.4}
+    \int_{-h}^{\eta}
+    \left(
+        \frac{\partial (u w)}{\partial z}
+    \right)
+    \,dz =
+    (u w)\big|_{z=\eta} - (u w)\big|_{z=-h}
+\end{equation}
+
+Substituindo \eqref{eq:swe2.1}, \eqref{eq:swe2.2}, \eqref{eq:swe2.3} e \eqref{eq:swe2.4} em \eqref{eq:swe2}, obtém-se:
+
+\begin{equation}
+\label{eq:swe2-final1}
+\begin{aligned}
+    &\Biggl(
+        \frac{\partial}{\partial t} \int_{-h}^{\eta} u \,dz
+        - u\big|_{z=\eta} \frac{\partial \eta}{\partial t}
+        - u\big|_{z=-h} \frac{\partial h}{\partial t}
+    \Biggr)
+    \\
+    &+
+    \Biggl(
+        \frac{\partial}{\partial x} \int_{-h}^{\eta} (u^2 + p) \,dz
+        - (u^2 + p)\big|_{z=\eta} \frac{\partial \eta}{\partial x}
+        - (u^2 + p)\big|_{z=-h} \frac{\partial h}{\partial x}
+    \Biggr)
+    \\
+    &+
+    \Biggl(
+        \frac{\partial}{\partial y} \int_{-h}^{\eta} (u v) \,dz
+        - (u v)\big|_{z=\eta} \frac{\partial \eta}{\partial y}
+        - (u v)\big|_{z=-h} \frac{\partial h}{\partial y}
+    \Biggr)
+    \\
+    &+
+    \Biggl(
+        (u w)\big|_{z=\eta} - (u w)\big|_{z=-h}
+    \Biggr) = 0
+\end{aligned}
+\end{equation}
+
+Considerando a condição de contorno de não-deslizamento.
+
+\begin{equation}
+\label{eq:swe2-final2}
+\begin{aligned}
+    &\frac{\partial (u D)}{\partial t} 
+    - u\big|_{z=\eta} \frac{\partial \eta}{\partial t}
+    + \frac{\partial}{\partial x} 
+      \int_{-h}^{\eta} (u^2 + p_0 - g z + g \eta) \,dz 
+    - u^2 \big|_{z=\eta} \frac{\partial \eta}{\partial x} 
+    - p_0 \frac{\partial \eta}{\partial x} \\
+    &- (p_0 + g D) \frac{\partial h}{\partial x}
+    + \frac{\partial (u v D)}{\partial y} 
+    - (u v)\big|_{z=\eta} \frac{\partial \eta}{\partial y} 
+    + (u w)\big|_{z=\eta} = 0
+\end{aligned}
+\end{equation}
+
+\begin{equation}
+\label{eq:swe2-final3}
+\begin{aligned}
+    &\frac{\partial (u D)}{\partial t} 
+    + \frac{\partial}{\partial x} 
+      \Bigl(
+          u^2 D + p_0 D - \frac{g}{2}(\eta^2 - h^2) + g \eta D
+      \Bigr)
+    + \frac{\partial (u v D)}{\partial y} \\
+    &- u\big|_{z=\eta} 
+      \Bigl(
+          \frac{\partial \eta}{\partial t} 
+          + u\big|_{z=\eta} \frac{\partial \eta}{\partial x} 
+          + v\big|_{z=\eta} \frac{\partial \eta}{\partial y} 
+          - w\big|_{z=\eta}
+      \Bigr)
+      - p_0 \frac{\partial \eta}{\partial x} 
+      - p_0 \frac{\partial h}{\partial x} 
+      - g D \frac{\partial h}{\partial x} = 0
+\end{aligned}
+\end{equation}
+
+Considerando a condição de contorno da cinemática ao longo da superfície livre e as equações \eqref{eq:swe-m} e \eqref{eq:swe-n}
+
+\begin{equation}
+\label{eq:swe2-final4}
+    \frac{\partial M}{\partial t} 
+    + \frac{\partial }{\partial x} \left( \frac{M^2}{D} \right)
+    + \frac{\partial}{\partial x} 
+      \Bigl(
+          p_0 D - \frac{g}{2}(D^2 + 2 D h) + g (D - h) D
+      \Bigr)
+      + \frac{\partial}{\partial y} \left( \frac{M N}{D}\right)
+    - p_0 \frac{\partial D}{\partial x} 
+    - g D \frac{\partial h}{\partial x} = 0
+\end{equation}
+
+\begin{equation}
+\label{eq:swe2-final5}
+    \frac{\partial M}{\partial t} 
+    + \frac{\partial }{\partial x} \left( \frac{M^2}{D} \right)
+    + \frac{\partial}{\partial x} 
+      \Bigl(
+          - \frac{g}{2}(D^2 + 2 D h) + g D^2 - g D h
+      \Bigr)
+      + \frac{\partial}{\partial y} \left( \frac{M N}{D}\right)
+    + p_0 \frac{\partial D}{\partial x} 
+    - p_0 \frac{\partial D}{\partial x} 
+    - g D \frac{\partial h}{\partial x} = 0
+\end{equation}
+
+\begin{equation}
+\label{eq:swe2-final6}
+    \frac{\partial M}{\partial t} 
+    + \frac{\partial }{\partial x} \left( \frac{M^2}{D} \right)
+    + \frac{\partial}{\partial x} 
+      \Bigl(
+          \frac{g D^2}{2} - g D h + g D h
+      \Bigr)
+      + \frac{\partial}{\partial y} \left( \frac{M N}{D}\right)
+    - g D \frac{\partial h}{\partial x} = 0
+\end{equation}
+
+\begin{equation}
+\label{eq:swe2-final7}
+    \frac{\partial M}{\partial t} 
+    + \frac{\partial }{\partial x} \left( \frac{M^2}{D} \right)
+    + \frac{\partial}{\partial y} \left( \frac{M N}{D}\right)
+    + \frac{g}{2} \frac{\partial D^2}{\partial x} 
+    - g D \frac{\partial h}{\partial x} = 0
+\end{equation}
+
+\begin{equation}
+\label{eq:swe2-final8}
+    \frac{\partial M}{\partial t} 
+    + \frac{\partial }{\partial x} \left( \frac{M^2}{D} \right)
+    + \frac{\partial}{\partial y} \left( \frac{M N}{D}\right)
+    + g D \frac{\partial D}{\partial x} 
+    - g D \frac{\partial h}{\partial x} = 0
+\end{equation}
+
+\begin{equation}
+\label{eq:swe2-final9}
+    \frac{\partial M}{\partial t} 
+    + \frac{\partial }{\partial x} \left( \frac{M^2}{D} \right)
+    + \frac{\partial}{\partial y} \left( \frac{M N}{D}\right)
+    + g D \frac{\partial \eta}{\partial x} = 0
+\end{equation}
+
+Repetindo o processo para a terceira equação do sistema \eqref{eq:swe-sis-3}:
+
+\begin{equation}
+    \label{eq:swe3}
+    \int_{-h}^{\eta}
+    \left(
+        \frac{\partial v}{\partial t}
+        + \frac{\partial (u v)}{\partial x}
+        + \frac{\partial (v^2 + p)}{\partial y}
+        + \frac{\partial (v w)}{\partial z}
+    \right)
+    \,dz = 0
+\end{equation}
+
+Integrando cada componente individualmente
+
+\begin{equation}
+    \label{eq:swe3.1}
+    \int_{-h}^{\eta}
+    \left(
+        \frac{\partial v}{\partial t}
+    \right)
+    \,dz =
+    \frac{\partial}{\partial t}
+    \int_{-h}^{\eta} v \,dz -
+    v \big|_{z=\eta} \frac{\partial \eta}{\partial t} -
+    v \big|_{z=-h} \frac{\partial h}{\partial t}
+\end{equation}
+
+\begin{equation}
+    \label{eq:swe3.2}
+    \int_{-h}^{\eta}
+    \left(
+        \frac{\partial (uv)}{\partial x}
+    \right)
+    \,dz =
+    \frac{\partial}{\partial x}
+    \int_{-h}^{\eta} (uv) \,dz -
+    (uv) \big|_{z=\eta} \frac{\partial \eta}{\partial x} -
+    (uv) \big|_{z=-h} \frac{\partial h}{\partial x}
+\end{equation}
+
+\begin{equation}
+    \label{eq:swe3.3}
+    \int_{-h}^{\eta}
+    \left(
+        \frac{\partial (v^2 + p)}{\partial y}
+    \right)
+    \,dz =
+    \frac{\partial}{\partial y}
+    \int_{-h}^{\eta} (v^2 + p) \,dz -
+    (v^2 + p) \big|_{z=\eta} \frac{\partial \eta}{\partial y} -
+    (v^2 + p) \big|_{z=-h} \frac{\partial h}{\partial y}
+\end{equation}
+
+\begin{equation}
+    \label{eq:swe3.4}
+    \int_{-h}^{\eta}
+    \left(
+        \frac{\partial (v w)}{\partial z}
+    \right)
+    \,dz =
+    (v w)\big|_{z=\eta} - (v w)\big|_{z=-h}
+\end{equation}
+
+Substituindo \eqref{eq:swe3.1}, \eqref{eq:swe3.2}, \eqref{eq:swe3.3} e \eqref{eq:swe3.4} em \eqref{eq:swe3}, obtém-se:
+
+\begin{equation}
+    \label{eq:swe3-final1}
+    \begin{aligned}
+        &\Bigl(
+            \frac{\partial}{\partial t} \int_{-h}^{\eta} v \, dz
+            - v \big|_{z=\eta} \frac{\partial \eta}{\partial t}
+            - v \big|_{z=-h} \frac{\partial h}{\partial t}
+        \Bigr) \\
+        &+ \Bigl(
+            \frac{\partial}{\partial x} \int_{-h}^{\eta} (uv) \, dz
+            - (uv) \big|_{z=\eta} \frac{\partial \eta}{\partial x}
+            - (uv) \big|_{z=-h} \frac{\partial h}{\partial x}
+        \Bigr) \\
+        &+ \Bigl(
+            \frac{\partial}{\partial y} \int_{-h}^{\eta} (v^2 + p) \, dz
+            - (v^2 + p) \big|_{z=\eta} \frac{\partial \eta}{\partial y}
+            - (v^2 + p) \big|_{z=-h} \frac{\partial h}{\partial y}
+        \Bigr) \\
+        &+ \Bigl(
+            (v w) \big|_{z=\eta} - (v w) \big|_{z=-h}
+        \Bigr) = 0
+    \end{aligned}
+\end{equation}
+
+Considerando a condição de contorno de não-deslizamento.
+
+\begin{equation}
+    \label{eq:swe3-final2}
+    \begin{aligned}
+        &\Bigl(
+            \frac{\partial (vD)}{\partial t}
+            - v \big|_{z=\eta} \frac{\partial \eta}{\partial t}
+        \Bigr)
+        + \Bigl(
+            \frac{\partial (uvD)}{\partial x}
+            - (uv) \big|_{z=\eta} \frac{\partial \eta}{\partial x}
+        \Bigr) \\
+        &+ \Bigl(
+            \frac{\partial}{\partial y} \int_{-h}^{\eta} (v^2 + p_0 - g z + g \eta) \, dz
+            - v^2 \big|_{z=\eta} \frac{\partial \eta}{\partial y}
+            - p_0 \frac{\partial \eta}{\partial y}
+            - (p_0 + g D) \frac{\partial h}{\partial y}
+        \Bigr)
+        + \Bigl(
+            (v w) \big|_{z=\eta}
+        \Bigr) = 0
+    \end{aligned}
+\end{equation}
+
+\begin{equation}
+    \label{eq:swe3-final3}
+    \begin{aligned}
+        &\Bigl(
+            \frac{\partial (vD)}{\partial t}
+        \Bigr)
+        + \Bigl(
+            \frac{\partial (uvD)}{\partial x}
+        \Bigr)
+        + \Bigl(
+            \frac{\partial}{\partial y} \int_{-h}^{\eta} (v^2 + p_0 - g z + g \eta) \, dz
+            - p_0 \frac{\partial \eta}{\partial y}
+            - (p_0 + g D) \frac{\partial h}{\partial y}
+        \Bigr) \\
+        &- v \big|_{z=\eta}
+        \left(
+            \frac{\partial \eta}{\partial t}
+            + u \frac{\partial \eta}{\partial x}
+            + v \frac{\partial \eta}{\partial y}
+            + w
+        \right) = 0
+    \end{aligned}
+\end{equation}
+
+Considerando a condição de contorno da cinemática ao longo da superfície livre e as equações \eqref{eq:swe-m} e \eqref{eq:swe-n}
+
+\begin{equation}
+\label{eq:swe3-final4}
+    \frac{\partial N}{\partial t}
+    + \frac{\partial }{\partial x} \left(\frac{MN}{D}\right)
+    + \frac{\partial}{\partial y} \left(v^2 D + p_0 D -\frac{g}{2} (\eta^2 - h^2) + g \eta D\right)
+    - p_0 \frac{\partial \eta}{\partial y}
+    - p_0 \frac{\partial h}{\partial y}
+    - g D \frac{\partial h}{\partial y} = 0
+\end{equation}
+
+\begin{equation}
+\label{eq:swe3-final4}
+    \frac{\partial N}{\partial t}
+    + \frac{\partial }{\partial x} \left(\frac{MN}{D}\right)
+    + \frac{\partial }{\partial y} \left(\frac{N^2}{D}\right)
+    + \frac{\partial}{\partial y} \left(-\frac{g}{2} (D^2 + 2 D h) + g (D - h) D\right)
+    + p_0 \frac{\partial D}{\partial y}
+    - p_0 \frac{\partial D}{\partial y}
+    - g D \frac{\partial h}{\partial y} = 0
+\end{equation}
+
+\begin{equation}
+\label{eq:swe3-final5}
+    \frac{\partial N}{\partial t}
+    + \frac{\partial }{\partial x} \left(\frac{MN}{D}\right)
+    + \frac{\partial }{\partial y} \left(\frac{N^2}{D}\right)
+    + \frac{\partial}{\partial y} \left(-\frac{g}{2} (D^2 + 2 D h) + g D^2 - g D h\right)
+    - g D \frac{\partial h}{\partial y} = 0
+\end{equation}
+
+\begin{equation}
+\label{eq:swe3-final6}
+    \frac{\partial N}{\partial t}
+    + \frac{\partial }{\partial x} \left(\frac{MN}{D}\right)
+    + \frac{\partial }{\partial y} \left(\frac{N^2}{D}\right)
+    + \frac{\partial}{\partial y} \left(\frac{g D^2}{2} + g D h - g D h\right)
+    - g D \frac{\partial h}{\partial y} = 0
+\end{equation}
+
+\begin{equation}
+\label{eq:swe3-final7}
+    \frac{\partial N}{\partial t}
+    + \frac{\partial }{\partial x} \left(\frac{MN}{D}\right)
+    + \frac{\partial }{\partial y} \left(\frac{N^2}{D}\right)
+    +  \frac{g}{2} \frac{\partial D^2}{\partial y}
+    - g D \frac{\partial h}{\partial y} = 0
+\end{equation}
+
+\begin{equation}
+\label{eq:swe3-final8}
+    \frac{\partial N}{\partial t}
+    + \frac{\partial }{\partial x} \left(\frac{MN}{D}\right)
+    + \frac{\partial }{\partial y} \left(\frac{N^2}{D}\right)
+    + g D \frac{\partial D}{\partial y}
+    - g D \frac{\partial h}{\partial y} = 0
+\end{equation}
+
+\begin{equation}
+\label{eq:swe3-final8}
+    \frac{\partial N}{\partial t}
+    + \frac{\partial }{\partial x} \left(\frac{MN}{D}\right)
+    + \frac{\partial }{\partial y} \left(\frac{N^2}{D}\right)
+    + g D \frac{\partial \eta}{\partial y} = 0
+\end{equation}
+
+Combinando as equações \eqref{eq:swe1-final4}, \eqref{eq:swe2-final9} e \eqref{eq:swe3-final8} em um sistema de equações
+
+\[
+\begin{cases}
+\displaystyle
+\frac{\partial M}{\partial x}
++ \frac{\partial N}{\partial y}
++ \frac{\partial \eta}{\partial t}
+= 0,
+\\[8pt]
+\displaystyle
+\frac{\partial M}{\partial t}
++ \frac{\partial}{\partial x}\!\left(\frac{M^{2}}{D}\right)
++ \frac{\partial}{\partial y}\!\left(\frac{M N}{D}\right)
++ g\,D\,\frac{\partial \eta}{\partial x}
+= 0,
+\\[8pt]
+\displaystyle
+\frac{\partial N}{\partial t}
++ \frac{\partial}{\partial x}\!\left(\frac{M N}{D}\right)
++ \frac{\partial}{\partial y}\!\left(\frac{N^{2}}{D}\right)
++ g\,D\,\frac{\partial \eta}{\partial y}
+= 0.
+\end{cases}
+\]
+
+
+\subsection{Discretização}
+De acordo com \textcite{cuminato2013discretizacao}, a aproximação numérica da solução de uma equação de derivadas parciais é obtida por meio
+da transformação do problema contínuo num problema discreto e finito. Como no caso de equações diferenciais parcias não temos apenas uma variável
+independente, o domínio passa a ser uma região do plano ou do espaço. O domínio é transformado em um conjunto de pontos, geralmente igualmente espaçados,
+denominado \emph{malha}. As equações passam a ser avaliadas apenas nos pontos dessa malha e as derivadas são aproximadas por
+diferenças finitas.
+
+\begin{figure}[H]
+    \centering
+    \caption{Exemplo de malha}
+    \includegraphics[width=0.5\linewidth]{images/grid.jpg}\\
+    \fonteimagem{Fonte: \citeauthor{venkatratnam2015}, \citeyear{venkatratnam2015}}
+    \label{fig:figura-grid}
+\end{figure}
+

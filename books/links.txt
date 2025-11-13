@@ -1,0 +1,8 @@
+Matemática:
+https://books.google.com.br/books?hl=pt-BR&lr=&id=Q6asDd-b5LYC&oi=fnd&pg=PR11&dq=Navier+stokes&ots=ke4XiUHUwy&sig=70hrjEjte_P1xui9aVNeYWFpGeQ&redir_esc=y#v=onepage&q=Navier%20stokes&f=false
+
+Devito:
+
+
+Vulkan:
+https://ieeexplore.ieee.org/abstract/document/9500108?casa_token=MGe-foxB4hcAAAAA:lzmg_L4hWaiqOdMMjc0VANdYTAylb7LhwlXgD54C_3Hj1cMiwGRHiS0etBkQY2vh9JrRQDh7NsZL

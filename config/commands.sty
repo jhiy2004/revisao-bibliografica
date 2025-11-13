@@ -1,0 +1,38 @@
+% Ambiente para exibir a natureza do trabalho (ex: monografia, TCC, etc.)
+% Insere um recuo à direita (59mm) e um bloco de texto justificado com largura de 95mm.
+\newenvironment{natureza}
+  {\hspace{59mm}\begin{minipage}[c]{95mm}\begin{justify}}
+  {\end{justify}\end{minipage}}
+
+% Ambiente para citações longas.
+% Adiciona espaçamento vertical antes e depois, centraliza o conteúdo em uma caixa de 120mm,
+% define espaçamento entre linhas como 1.0 e reduz o tamanho da fonte para \small.
+\newenvironment{longcite}
+  {\vspace{5mm}\hfill\begin{minipage}[c]{120mm}\setstretch{1.0}\small}
+  {\end{minipage}\vspace{5mm}}
+
+% Comando para o título do trabalho. Pode ser sobrescrito depois.
+\newcommand{\titulo}{\textbf{Sistema de Visualização Interativa para Simulação Computacional
+das Equações de Águas Rasas utilizando Devito e Vulkan}}
+
+% Nome do autor do trabalho.
+\newcommand{\nome}{José Henrique Ioki Yamaoki}
+
+% Comando para o nome do(a) orientador(a).
+\newcommand{\orientador}{Profa. Dra. Gilcilene Sanchez de Paulo}
+
+% Comando para o nome do(a) co-orientador(a).
+\newcommand{\coorientador}{Prof. Dr. Messias Meneguette Júnior}
+
+% Cidade e estado onde o trabalho foi realizado.
+\newcommand{\cidade}{Presidente Prudente}
+\newcommand{\cidadeestado}{\cidade\;-- SP}
+
+% Tipo de trabalho (ex: Artigo, Revisão bibliográfica, Projeto experimental, etc.)
+\newcommand{\tipotrabalho}{Revisão bibliográfica}
+
+% Nome do professor convidado da banca ou avaliador externo.
+\newcommand{\professorconvidado}{Prof. Dr. Nome Sobrenome}
+
+% Comando para exibir a fonte de uma imagem com espaçamento vertical antes e centralização.
+\newcommand{\fonteimagem}[1]{\vspace{\baselineskip}\centering #1}
