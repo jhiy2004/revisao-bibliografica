@@ -2,7 +2,7 @@
 
 \subsection{Equações de Navier Stokes}
 
-Um fluido é uma substância (líquida ou gasosa) que se deforma continuamente ao sofrer uma tensão, por menor que seja essa tensão.
+Um fluido é uma substância (líquida ou gasosa) que se deforma continuamente ao sofrer qualquer tensão.
 Os fluidos são caracterizados por alguns atributos, os principais são a viscosidade e compressibilidade. A viscosidade busca medir
 o quão internamente resistente é o fluido ao movimento e ao escoamento, um exemplo de fluido com alta viscosidade é o mel que flui mais
 devagar do que um fluido de baixa viscosidade como a água. A compressibilidade se refere a capacidade do fluido
@@ -862,7 +862,7 @@ Considerando a condição de contorno da cinemática ao longo da superfície liv
 \end{equation}
 
 \begin{equation}
-\label{eq:swe3-final4}
+\label{eq:swe3-final5}
     \frac{\partial N}{\partial t}
     + \frac{\partial }{\partial x} \left(\frac{MN}{D}\right)
     + \frac{\partial }{\partial y} \left(\frac{N^2}{D}\right)
@@ -873,7 +873,7 @@ Considerando a condição de contorno da cinemática ao longo da superfície liv
 \end{equation}
 
 \begin{equation}
-\label{eq:swe3-final5}
+\label{eq:swe3-final6}
     \frac{\partial N}{\partial t}
     + \frac{\partial }{\partial x} \left(\frac{MN}{D}\right)
     + \frac{\partial }{\partial y} \left(\frac{N^2}{D}\right)
@@ -882,7 +882,7 @@ Considerando a condição de contorno da cinemática ao longo da superfície liv
 \end{equation}
 
 \begin{equation}
-\label{eq:swe3-final6}
+\label{eq:swe3-final7}
     \frac{\partial N}{\partial t}
     + \frac{\partial }{\partial x} \left(\frac{MN}{D}\right)
     + \frac{\partial }{\partial y} \left(\frac{N^2}{D}\right)
@@ -891,7 +891,7 @@ Considerando a condição de contorno da cinemática ao longo da superfície liv
 \end{equation}
 
 \begin{equation}
-\label{eq:swe3-final7}
+\label{eq:swe3-final8}
     \frac{\partial N}{\partial t}
     + \frac{\partial }{\partial x} \left(\frac{MN}{D}\right)
     + \frac{\partial }{\partial y} \left(\frac{N^2}{D}\right)
@@ -900,7 +900,7 @@ Considerando a condição de contorno da cinemática ao longo da superfície liv
 \end{equation}
 
 \begin{equation}
-\label{eq:swe3-final8}
+\label{eq:swe3-final9}
     \frac{\partial N}{\partial t}
     + \frac{\partial }{\partial x} \left(\frac{MN}{D}\right)
     + \frac{\partial }{\partial y} \left(\frac{N^2}{D}\right)
@@ -909,7 +909,7 @@ Considerando a condição de contorno da cinemática ao longo da superfície liv
 \end{equation}
 
 \begin{equation}
-\label{eq:swe3-final8}
+\label{eq:swe3-final10}
     \frac{\partial N}{\partial t}
     + \frac{\partial }{\partial x} \left(\frac{MN}{D}\right)
     + \frac{\partial }{\partial y} \left(\frac{N^2}{D}\right)
@@ -958,3 +958,32 @@ diferenças finitas.
     \label{fig:figura-grid}
 \end{figure}
 
+\subsection{Diferenças finitas}
+O método das difereças finitas é um método numérico para se calcular derivadas de funções, essencial quando não se tem uma função geradora dos dados do
+problema para se calcular de forma analítica, consiste em aproximar a derivada em um ponto usando um conjunto de vizinhos, denominamos esse conjunto de
+vizinhos de estêncil.
+
+As aproximações mais utilizadas para a derivada de primeira ordem são as diferenças progressiva (explícita), regressiva (implícita) e centrada.
+
+\subsubsection{Diferença progressiva}
+
+\[
+    f'(x) = \frac{f(x+\Delta x) - f(x)}{\Delta x}
+\]
+
+\subsubsection{Diferença regressiva}
+
+\[
+    f'(x) = \frac{f(x) - f(x-\Delta x)}{\Delta x}
+\]
+
+\subsubsection{Diferença centrada}
+
+\[
+    f'(x) = \frac{f(x+\Delta x) - f(x-\Delta x)}{2 \Delta x}
+\]
+
+A diferença centrada apresenta, em geral maior ordem de precisão em comparação com as outras duas, a diferença centrada possui erro de ordem $O(\Delta x^2)$
+em quanto que as outras duas apresentam erro de ordem $O(\Delta x)$
+
+\newpage

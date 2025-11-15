@@ -1,0 +1,16 @@
+\section{Devito}
+
+Devito é uma ferramenta de computação científica em Python voltada à solução eficiente
+de equações diferenciais parciais por meio de discretizações em diferenças finitas.
+O pacote adota uma abordagem simbólica de alto nível, baseada no \textit{backend} do SymPy,
+a partir da qual realiza geração automática de código otimizado em C++ com compilação
+\textit{just-in-time}. Esse processo permite que os \textit{kernels} numéricos sejam adaptados a
+diferentes arquiteturas, incluindo CPUs, GPUs e sistemas distribuídos.
+
+O compilador interno do Devito aplica técnicas modernas de otimização,
+como \textit{loop tiling}, vetorização e \textit{common subexpression elimination},
+permitindo que esquemas de diferenças finitas de alta ordem sejam executados de
+maneira eficiente. O sistema suporta problemas estacionários e dependentes do tempo,
+utilizando objetos simbólicos para representar funções no domínio espacial ou
+espaço-temporal, além de fornecer estruturas para definição de malhas, parâmetros
+físicos e operadores diferenciais.
