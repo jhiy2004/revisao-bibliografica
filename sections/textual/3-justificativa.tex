@@ -1,2 +1,19 @@
 \section{Justificativa}
 
+As equações de águas rasas (Shallow Water Equations - SWE) descrevem a dinâmica de
+fluidos em regimes nos quais a dimensão vertical é muito menor que as dimensões horizontais,
+sendo amplamente utilizadas em estudos e hidrodinâmica, modelagem de ondas e previsão de
+inundações. A solução numérica destas equações exige métodos computacionais eficientes para
+resolver sistemas de equações diferenciais parciais, gerando grandes volumes de dados espaciais
+e temporais.
+
+A visualização adequada desses resultados é essencial para a interpretação física e validação
+dos modelos. No entanto, a maioria das abordagens atuais emprega ferramentas de visualização
+científica tradicionais (como ParaView e VisIt), que, embora robustas, não exploram todo o
+potencial de interatividade e desempenho gráfico oferecido por APIs gráficas modernas, como
+o Vulkan.
+
+Dessa forma, identifica-se uma oportunidade para desenvolver um sistema que integre a
+solução numérica das SWE - utilizando o framework Devito para discretização por diferenças
+finitas - a uma API gráfica moderna (Vulkan), possibilitando renderização interativa e análise
+visual em tempo real dos resultados, favorecendo a compreensão e validação do modelo.
