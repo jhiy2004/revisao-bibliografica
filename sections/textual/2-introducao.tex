@@ -2,24 +2,24 @@
 As Equações de Navier–Stokes constituem a formulação fundamental para descrever o
 movimento de fluidos viscosos, tendo sido desenvolvidas no século XIX e permanecendo
 até hoje como base da mecânica dos fluidos. Em diversos cenários, entretanto, é possível
-empregar aproximações que preservam o comportamento essencial do escoamento com
-menor custo computacional. Entre essas aproximações destacam-se as Equações de Águas
-Rasas (Shallow Water Equations – SWE), que assumem que o comprimento de onda é muito
-maior que a profundidade do fluido, tornando-se um modelo amplamente utilizado na
-simulação de tsunamis, marés e escoamentos costeiros.
+empregar aproximações que preservam o comportamento essencial de algum tipo específico de
+escoamento. Entre essas aproximações destacam-se as Equações de Águas
+Rasas (\textit{Shallow Water Equations} – SWE), que assumem que o comprimento vertical da onda é muito
+menor do que as dimensões horizontais, tornando-se um modelo amplamente utilizado na
+simulação de tsunamis, marés e escoamentos costeiros \textcite{parna2020shallow}.
 
-A solução analítica dessas equações diferenciais parciais é, em geral, inviável, uma vez
-que requer conhecimento prévio das funções exatas que governam o sistema. Por essa razão,
+A solução analítica dessas equações diferenciais parciais é, em geral, inviável, muitas vezes
+determinadas apenas para problemas muito simplificados. Por essa razão,
 técnicas numéricas, como os métodos de diferenças finitas, são amplamente empregadas para
 aproximar as derivadas parciais e calcular a evolução das variáveis físicas ao longo do
-tempo. Nesse contexto, ferramentas como o Devito têm desempenhado papel crescente ao
+tempo \textcite{cuminato2013discretizacao}. Nesse contexto, ferramentas como o Devito têm desempenhado papel crescente ao
 permitir a geração automatizada e otimizada de códigos numéricos destinados à simulação
-desses modelos.
+desses modelos \textcite{devito-compiler}.
 
 Além dos cálculos das variáveis físicas ao longo do tempo, é necessário que sejam
 aplicadas técnicas de visualização científica para a interpretação dos resultados.
 Para esse fim existem ferramentas como o ParaView e VisIt, que são ferramentas para
-visualização de dados científicos e usam OpenGL para renderização. Entretanto, trabalhos
+visualização de dados científicos e usam OpenGL para renderização \textcite{ayachit2015paraview} \textcite{Childs_High_Performance_Visualization--Enabling_2012}. Entretanto, trabalhos
 mais recentes, como o \textcite{datoviz} vêm explorando a possibilidade usar APIs gráficas
 mais modernas, como o Vulkan.
 
@@ -27,6 +27,6 @@ A revisão bibliográfica está organizada da seguinte forma:
 
 \begin{enumerate}[label=(\Roman*)]
     \item apresenta-se o fundamento teórico das SWE e dos métodos de discretização;
-    \item discute-se o framework Devito como ferramenta para implementação de métodos de diferenças finitas de alto desempenho;
+    \item discute-se o \textit{framework} Devito como ferramenta para implementação de métodos de diferenças finitas de alto desempenho;
     \item analisam-se técnicas e ferramentas de visualização científica, com ênfase no uso de APIs gráficas modernas como o Vulkan.
 \end{enumerate}
